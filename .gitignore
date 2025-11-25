@@ -20,3 +20,6 @@ backend/tmp/     # Folder temporary Air (Live reload)
 .vscode/
 .idea/
 *.log
+
+node_modules/
+.next/
