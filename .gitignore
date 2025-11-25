@@ -1,0 +1,22 @@
+# --- FRONTEND (Next.js) ---
+frontend/.next/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.*
+frontend/build/
+frontend/dist/
+frontend/.DS_Store
+
+# --- BACKEND (Golang) ---
+backend/vendor/
+backend/.env
+backend/bin/
+backend/main     # Binary hasil build (Linux/Mac)
+backend/main.exe # Binary hasil build (Windows)
+backend/tmp/     # Folder temporary Air (Live reload)
+
+# --- GLOBAL ---
+.vscode/
+.idea/
+*.log
