@@ -1,49 +1,58 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Sidebar from "../components/Sidebar";
+import type React from "react"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import "./globals.css"
+import Sidebar from "@/components/sidebar"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "WellTrack - Productivity & Wellness",
-  description: "Track habits, mood, and focus.",
-};
+  title: "WellTrack - Produktivitas & Kesehatan Mental",
+  description: "Lacak kebiasaan, mood, dan fokus untuk gaya hidup yang lebih sehat.",
+  generator: "v0.app",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
+  },
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    // Tambahkan class "dark" di sini agar CSS dark mode jalan
-    <html lang="en" className="dark">
+    <html lang="id" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-zinc-200 flex h-screen overflow-hidden`}
+        className={`${_geist.variable} font-sans antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 flex h-screen overflow-hidden`}
       >
-        {/* Sidebar Navigasi */}
         <Sidebar />
 
-        {/* Area Utama (Konten) */}
         <main className="flex-1 overflow-y-auto p-8 relative">
+          {/* Animated background glow */}
+          <div className="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 blur-[120px] pointer-events-none animate-pulse" />
+          <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 blur-[120px] pointer-events-none animate-pulse" />
 
-          {/* Efek Glow Background (Estetika) */}
-          <div className="absolute top-0 left-0 w-full h-96 bg-indigo-900/10 blur-[100px] pointer-events-none" />
-
-          {/* Konten Halaman */}
-          <div className="relative z-10 max-w-5xl mx-auto">
-            {children}
-          </div>
+          <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
         </main>
+
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
