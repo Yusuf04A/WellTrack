@@ -1,77 +1,76 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.98 0.001 70);
+  --foreground: oklch(0.2 0.01 130);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2 0.01 130);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --popover-foreground: oklch(0.2 0.01 130);
+  --primary: oklch(0.52 0.16 131);
+  --primary-foreground: oklch(0.98 0.001 70);
+  --secondary: oklch(0.95 0.01 130);
+  --secondary-foreground: oklch(0.3 0.05 131);
+  --muted: oklch(0.9 0.01 130);
+  --muted-foreground: oklch(0.5 0.05 130);
+  --accent: oklch(0.52 0.16 131);
+  --accent-foreground: oklch(0.98 0.001 70);
+  --destructive: oklch(0.62 0.22 29);
+  --destructive-foreground: oklch(0.98 0.001 70);
+  --border: oklch(0.9 0.01 130);
+  --input: oklch(0.95 0.005 130);
+  --ring: oklch(0.52 0.16 131);
+  --chart-1: oklch(0.52 0.16 131);
+  --chart-2: oklch(0.65 0.19 148);
+  --chart-3: oklch(0.72 0.15 110);
+  --chart-4: oklch(0.58 0.14 165);
+  --chart-5: oklch(0.48 0.18 142);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2 0.01 130);
+  --sidebar-primary: oklch(0.52 0.16 131);
+  --sidebar-primary-foreground: oklch(0.98 0.001 70);
+  --sidebar-accent: oklch(0.95 0.01 130);
+  --sidebar-accent-foreground: oklch(0.3 0.05 131);
+  --sidebar-border: oklch(0.9 0.01 130);
+  --sidebar-ring: oklch(0.52 0.16 131);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: oklch(0.15 0.02 130);
+  --foreground: oklch(0.98 0.001 70);
+  --card: oklch(0.22 0.02 130);
+  --card-foreground: oklch(0.98 0.001 70);
+  --popover: oklch(0.22 0.02 130);
+  --popover-foreground: oklch(0.98 0.001 70);
+  --primary: oklch(0.65 0.19 148);
+  --primary-foreground: oklch(0.15 0.02 130);
+  --secondary: oklch(0.3 0.05 131);
+  --secondary-foreground: oklch(0.98 0.001 70);
+  --muted: oklch(0.3 0.05 131);
+  --muted-foreground: oklch(0.7 0.05 130);
+  --accent: oklch(0.65 0.19 148);
+  --accent-foreground: oklch(0.15 0.02 130);
+  --destructive: oklch(0.62 0.22 29);
+  --destructive-foreground: oklch(0.93 0.01 30);
+  --border: oklch(0.3 0.05 131);
+  --input: oklch(0.25 0.03 131);
+  --ring: oklch(0.65 0.19 148);
+  --chart-1: oklch(0.65 0.19 148);
+  --chart-2: oklch(0.72 0.15 110);
+  --chart-3: oklch(0.52 0.16 131);
+  --chart-4: oklch(0.58 0.14 165);
+  --chart-5: oklch(0.48 0.18 142);
+  --sidebar: oklch(0.18 0.02 130);
+  --sidebar-foreground: oklch(0.98 0.001 70);
+  --sidebar-primary: oklch(0.65 0.19 148);
+  --sidebar-primary-foreground: oklch(0.15 0.02 130);
+  --sidebar-accent: oklch(0.3 0.05 131);
+  --sidebar-accent-foreground: oklch(0.98 0.001 70);
+  --sidebar-border: oklch(0.3 0.05 131);
+  --sidebar-ring: oklch(0.65 0.19 148);
 }
 
 @theme inline {
@@ -124,11 +123,11 @@
   }
 }
 
-/* Add custom animations and utility classes for WellTrack */
+/* Smooth animations for WellTrack - green-white theme */
 @keyframes float-up {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   100% {
     opacity: 1;
@@ -136,19 +135,39 @@
   }
 }
 
-@keyframes pulse-glow {
+@keyframes gentle-pulse {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    opacity: 1;
   }
   50% {
-    box-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+    opacity: 0.8;
   }
 }
 
-@keyframes scale-in {
+@keyframes subtle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.25);
+  }
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes smooth-scale {
   0% {
-    transform: scale(0.95);
+    transform: scale(0.98);
     opacity: 0;
   }
   100% {
@@ -157,16 +176,39 @@
   }
 }
 
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .animate-float-up {
-  animation: float-up 0.6s ease-out;
+  animation: float-up 0.6s ease-out forwards;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
+.animate-gentle-pulse {
+  animation: gentle-pulse 3s ease-in-out infinite;
 }
 
-.animate-scale-in {
-  animation: scale-in 0.3s ease-out;
+.animate-subtle-glow {
+  animation: subtle-glow 2.5s ease-in-out infinite;
+}
+
+.animate-gentle-float {
+  animation: gentle-float 3.5s ease-in-out infinite;
+}
+
+.animate-smooth-scale {
+  animation: smooth-scale 0.5s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out;
 }
 
 .transition-smooth {
@@ -174,17 +216,27 @@
 }
 
 .hover-lift {
-  @apply hover:-translate-y-1 hover:shadow-xl transition-all duration-300;
+  @apply hover:-translate-y-1.5 hover:shadow-lg hover:shadow-green-500/15 transition-all duration-500 ease-out;
 }
 
 .hover-glow {
-  @apply hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300;
+  @apply hover:shadow-lg hover:shadow-green-500/20 transition-all duration-500 ease-out;
 }
 
 .gradient-text {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-400;
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-emerald-500 to-green-500;
 }
 
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-slate-900;
+  @apply focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-background;
 }
+
+.glass-effect {
+  @apply backdrop-blur-md bg-white/5 border border-green-500/10;
+}
+
+.smooth-transition {
+  @apply transition-all duration-500 ease-out;
+}
+
+/* Remove problematic tw-animate-css import and use native animations */

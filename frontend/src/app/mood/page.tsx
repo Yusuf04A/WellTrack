@@ -1,48 +1,48 @@
 "use client"
 import { useState } from "react"
 import { cn } from "../../lib/utils"
-import { Send } from "lucide-react"
+import { Send, Heart, Smile, Frown, Moon, AlertCircle } from "lucide-react"
 
 const moods = [
     {
         label: "Amazing",
-        emoji: "🤩",
-        color: "from-emerald-500/20 to-emerald-500/5",
-        border: "border-green-500/30",
-        textColor: "text-green-400",
-        shadowColor: "shadow-green-500/30",
+        icon: Smile,
+        color: "from-emerald-500/20 dark:from-emerald-500/25 to-emerald-500/5 dark:to-emerald-500/10",
+        border: "border-green-500/30 dark:border-green-500/30",
+        textColor: "text-green-600 dark:text-green-400",
+        shadowColor: "shadow-green-500/30 dark:shadow-green-500/40",
     },
     {
         label: "Good",
-        emoji: "🙂",
-        color: "from-green-500/20 to-green-500/5",
-        border: "border-green-500/30",
-        textColor: "text-green-400",
-        shadowColor: "shadow-green-500/30",
+        icon: Heart,
+        color: "from-green-500/20 dark:from-green-500/25 to-green-500/5 dark:to-green-500/10",
+        border: "border-green-500/30 dark:border-green-500/30",
+        textColor: "text-green-600 dark:text-green-400",
+        shadowColor: "shadow-green-500/30 dark:shadow-green-500/40",
     },
     {
         label: "Neutral",
-        emoji: "😐",
-        color: "from-slate-500/20 to-slate-500/5",
-        border: "border-slate-500/30",
-        textColor: "text-slate-400",
-        shadowColor: "shadow-slate-500/30",
+        icon: AlertCircle,
+        color: "from-slate-500/20 dark:from-slate-500/25 to-slate-500/5 dark:to-slate-500/10",
+        border: "border-slate-500/30 dark:border-slate-500/30",
+        textColor: "text-slate-600 dark:text-slate-400",
+        shadowColor: "shadow-slate-500/30 dark:shadow-slate-500/40",
     },
     {
         label: "Tired",
-        emoji: "😴",
-        color: "from-amber-500/20 to-amber-500/5",
-        border: "border-amber-500/30",
-        textColor: "text-amber-400",
-        shadowColor: "shadow-amber-500/30",
+        icon: Moon,
+        color: "from-amber-500/20 dark:from-amber-500/25 to-amber-500/5 dark:to-amber-500/10",
+        border: "border-amber-500/30 dark:border-amber-500/30",
+        textColor: "text-amber-600 dark:text-amber-400",
+        shadowColor: "shadow-amber-500/30 dark:shadow-amber-500/40",
     },
     {
         label: "Stressed",
-        emoji: "😰",
-        color: "from-red-500/20 to-red-500/5",
-        border: "border-red-500/30",
-        textColor: "text-red-400",
-        shadowColor: "shadow-red-500/30",
+        icon: Frown,
+        color: "from-red-500/20 dark:from-red-500/25 to-red-500/5 dark:to-red-500/10",
+        border: "border-red-500/30 dark:border-red-500/30",
+        textColor: "text-red-600 dark:text-red-400",
+        shadowColor: "shadow-red-500/30 dark:shadow-red-500/40",
     },
 ]
 
@@ -59,12 +59,12 @@ export default function MoodPage() {
     }
 
     return (
-        <div className="max-w-3xl mx-auto space-y-8 md:space-y-10 animate-float-up">
+        <div className="max-w-3xl mx-auto space-y-8 md:space-y-10 animate-float-up pb-10">
             <div className="text-center space-y-3">
-                <h2 className="text-4xl md:text-6xl font-bold text-white text-balance">
+                <h2 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white text-balance">
                     Bagaimana Mood <span className="gradient-text">Kamu</span> Hari Ini?
                 </h2>
-                <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
+                <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
                     Pilih salah satu yang paling menggambarkan perasaanmu saat ini.
                 </p>
             </div>
@@ -79,16 +79,20 @@ export default function MoodPage() {
                             "flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl border transition-all duration-400 animate-float-up group smooth-transition",
                             selectedMood === m.label
                                 ? `bg-gradient-to-br ${m.color} border-opacity-100 ${m.border} scale-105 shadow-lg ${m.shadowColor}`
-                                : `bg-gradient-to-br from-slate-900 to-slate-950 border-slate-700/50 hover:border-green-500/50 hover:bg-slate-800/50`,
+                                : `bg-gradient-to-br from-white/80 dark:from-slate-900 to-slate-100/50 dark:to-slate-950 border-slate-300/50 dark:border-slate-700/50 hover:border-green-500/50 dark:hover:border-green-500/50 hover:bg-slate-200/50 dark:hover:bg-slate-800/50`,
                         )}
                     >
-                        <span className="text-4xl md:text-5xl mb-2 md:mb-4 block group-hover:scale-125 transition-transform duration-400">
-                            {m.emoji}
-                        </span>
+                        <m.icon
+                            size={40}
+                            className={cn(
+                                "mb-2 md:mb-4 block group-hover:scale-125 transition-transform duration-400",
+                                selectedMood === m.label ? m.textColor : "text-slate-600 dark:text-slate-500",
+                            )}
+                        />
                         <span
                             className={cn(
                                 "text-xs md:text-sm font-bold transition-colors duration-400",
-                                selectedMood === m.label ? m.textColor : "text-slate-300",
+                                selectedMood === m.label ? m.textColor : "text-slate-700 dark:text-slate-300",
                             )}
                         >
                             {m.label}
@@ -101,12 +105,12 @@ export default function MoodPage() {
                 className={cn(
                     "space-y-4 p-4 md:p-8 rounded-2xl border transition-all duration-500 smooth-transition",
                     selectedMood
-                        ? "bg-gradient-to-br from-slate-900 to-slate-950 border-green-500/30 shadow-lg shadow-green-500/20"
-                        : "bg-slate-900/30 border-slate-700/30",
+                        ? "bg-gradient-to-br from-white/80 dark:from-slate-900 to-slate-100/50 dark:to-slate-950 border-green-500/30 shadow-lg shadow-green-500/20 dark:shadow-green-500/20"
+                        : "bg-slate-100/50 dark:bg-slate-900/30 border-slate-300/50 dark:border-slate-700/30",
                 )}
             >
                 <div>
-                    <label className="text-sm font-semibold text-slate-300 ml-1 block mb-3">
+                    <label className="text-sm font-semibold text-slate-800 dark:text-slate-300 ml-1 block mb-3">
                         Ceritakan lebih lanjut (Opsional)
                     </label>
                     <textarea
@@ -114,10 +118,10 @@ export default function MoodPage() {
                         onChange={(e) => setNote(e.target.value)}
                         placeholder="Apa yang membuat perasaanmu seperti ini?"
                         className={cn(
-                            "w-full h-24 md:h-32 bg-slate-950/50 border rounded-xl p-3 md:p-4 text-slate-100 placeholder-slate-500 focus-ring resize-none transition-all duration-400 smooth-transition",
+                            "w-full h-24 md:h-32 bg-white/80 dark:bg-slate-950/50 border rounded-xl p-3 md:p-4 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-500 focus-ring resize-none transition-all duration-400 smooth-transition",
                             selectedMood
-                                ? "border-green-500/30 focus:border-green-500/60 focus:bg-slate-950/70"
-                                : "border-slate-700/50 focus:border-slate-600/70",
+                                ? "border-green-500/30 dark:border-green-500/30 focus:border-green-500/60 dark:focus:border-green-500/60 focus:bg-white/90 dark:focus:bg-slate-950/70"
+                                : "border-slate-300/50 dark:border-slate-700/50 focus:border-slate-600/70 dark:focus:border-slate-600/70",
                         )}
                     />
                 </div>
@@ -128,8 +132,8 @@ export default function MoodPage() {
                     className={cn(
                         "w-full py-3 md:py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-400 smooth-transition",
                         selectedMood
-                            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-slate-950 hover:from-green-400 hover:to-emerald-400 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105"
-                            : "bg-slate-800 text-slate-600 cursor-not-allowed",
+                            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-400 hover:to-emerald-400 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105"
+                            : "bg-slate-300 dark:bg-slate-800 text-slate-600 dark:text-slate-600 cursor-not-allowed",
                     )}
                 >
                     <Send size={18} />
@@ -138,8 +142,8 @@ export default function MoodPage() {
             </div>
 
             {selectedMood && (
-                <div className="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-green-600/10 to-emerald-600/10 border border-green-500/30 animate-float-up smooth-transition">
-                    <p className="text-green-300 font-semibold text-center text-sm md:text-base">
+                <div className="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-green-600/10 dark:from-green-600/10 to-emerald-600/5 dark:to-emerald-600/10 border border-green-500/30 dark:border-green-500/30 animate-float-up smooth-transition">
+                    <p className="text-green-700 dark:text-green-300 font-semibold text-center text-sm md:text-base">
                         ✨ Sempurna! Kamu sedang mengambil langkah penting untuk kesejahteraan mental.
                     </p>
                 </div>

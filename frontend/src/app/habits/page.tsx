@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { Check, Plus, Trash2 } from "lucide-react"
+import { Check, Plus, Trash2, Flame } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 type Habit = {
@@ -29,26 +29,26 @@ export default function HabitsPage() {
     const completedCount = habits.filter((h) => h.completed).length
 
     return (
-        <div className="space-y-6 md:space-y-8 animate-float-up">
+        <div className="space-y-6 md:space-y-8 animate-float-up pb-10">
             <div className="space-y-4">
                 <div className="flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
                     <div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">Daily Habits</h2>
-                        <p className="text-slate-400 text-lg">Konsistensi adalah kunci kesuksesan 🔑</p>
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Daily Habits</h2>
+                        <p className="text-slate-600 dark:text-slate-400 text-lg">Konsistensi adalah kunci kesuksesan</p>
                     </div>
-                    <button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-slate-950 px-4 md:px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all duration-400 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 smooth-transition">
+                    <button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white dark:text-slate-950 px-4 md:px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 transition-all duration-400 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 smooth-transition">
                         <Plus size={18} /> Tambah Habit
                     </button>
                 </div>
 
-                <div className="relative p-4 md:p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 border border-green-500/20 hover-glow">
+                <div className="relative p-4 md:p-6 rounded-2xl bg-gradient-to-r from-white/80 dark:from-slate-900 to-slate-100/50 dark:to-slate-950 border border-green-500/20 hover-glow">
                     <div className="flex items-center justify-between mb-3">
-                        <span className="text-slate-300 font-medium">Progress Hari Ini</span>
-                        <span className="text-green-400 font-bold text-lg">
+                        <span className="text-slate-700 dark:text-slate-300 font-medium">Progress Hari Ini</span>
+                        <span className="text-green-600 dark:text-green-400 font-bold text-lg">
                             {completedCount}/{habits.length}
                         </span>
                     </div>
-                    <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden border border-slate-700/50">
+                    <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-300/50 dark:border-slate-700/50">
                         <div
                             className="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transition-all duration-500 smooth-transition"
                             style={{ width: `${(completedCount / habits.length) * 100}%` }}
@@ -65,12 +65,12 @@ export default function HabitsPage() {
                             className={cn(
                                 "group flex items-center justify-between p-4 md:p-5 rounded-xl border transition-all duration-400 cursor-pointer hover-lift relative overflow-hidden",
                                 habit.completed
-                                    ? "bg-gradient-to-r from-green-600/10 to-emerald-600/10 border-green-500/30 hover:border-green-500/50"
-                                    : "bg-gradient-to-r from-slate-900/50 to-slate-950/50 border-slate-700/50 hover:border-green-500/50 hover:bg-slate-900/70",
+                                    ? "bg-gradient-to-r from-green-600/10 dark:from-green-600/10 to-emerald-600/5 dark:to-emerald-600/10 border-green-500/30 hover:border-green-500/50"
+                                    : "bg-gradient-to-r from-slate-100/50 dark:from-slate-900/50 to-slate-50/50 dark:to-slate-950/50 border-slate-300/50 dark:border-slate-700/50 hover:border-green-500/50 dark:hover:border-green-500/50 hover:bg-slate-200/30 dark:hover:bg-slate-900/70",
                             )}
                         >
                             {habit.completed && (
-                                <div className="absolute inset-0 bg-gradient-to-r from-green-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-green-600/5 dark:from-green-600/5 to-emerald-600/5 dark:to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                             )}
 
                             <div className="flex items-center gap-3 md:gap-4 flex-1 relative z-10">
@@ -78,16 +78,18 @@ export default function HabitsPage() {
                                     className={cn(
                                         "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-400 flex-shrink-0",
                                         habit.completed
-                                            ? "bg-gradient-to-r from-green-500 to-emerald-500 border-green-400 shadow-lg shadow-green-500/50"
-                                            : "border-slate-600 group-hover:border-green-500 group-hover:shadow-lg group-hover:shadow-green-500/30",
+                                            ? "bg-gradient-to-r from-green-500 to-emerald-500 border-green-400 shadow-md shadow-green-500/50"
+                                            : "border-slate-400 dark:border-slate-600 group-hover:border-green-500 dark:group-hover:border-green-500 group-hover:shadow-lg group-hover:shadow-green-500/30 dark:group-hover:shadow-green-500/30",
                                     )}
                                 >
-                                    {habit.completed && <Check size={16} className="text-slate-950 font-bold" />}
+                                    {habit.completed && <Check size={16} className="text-white font-bold" />}
                                 </div>
                                 <span
                                     className={cn(
                                         "font-semibold text-sm md:text-base transition-all duration-400",
-                                        habit.completed ? "text-slate-500 line-through" : "text-slate-100 group-hover:text-white",
+                                        habit.completed
+                                            ? "text-slate-500 dark:text-slate-500 line-through"
+                                            : "text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white",
                                     )}
                                 >
                                     {habit.title}
@@ -95,9 +97,9 @@ export default function HabitsPage() {
                             </div>
 
                             <div className="flex items-center gap-2 md:gap-4 relative z-10">
-                                <div className="flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-lg bg-slate-800/50 group-hover:bg-slate-800 transition-all duration-400">
-                                    <span className="text-green-400 font-bold">🔥</span>
-                                    <span className="text-slate-300 font-semibold">{habit.streak}</span>
+                                <div className="flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-lg bg-slate-200/50 dark:bg-slate-800/50 group-hover:bg-slate-300 dark:group-hover:bg-slate-800 transition-all duration-400">
+                                    <Flame size={14} className="text-green-600 dark:text-green-400" />
+                                    <span className="text-slate-700 dark:text-slate-300 font-semibold">{habit.streak}</span>
                                 </div>
 
                                 <button
@@ -105,7 +107,7 @@ export default function HabitsPage() {
                                         e.stopPropagation()
                                         deleteHabit(habit.id)
                                     }}
-                                    className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-400 opacity-0 group-hover:opacity-100"
+                                    className="p-2 text-slate-500 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-500/10 dark:hover:bg-red-500/10 rounded-lg transition-all duration-400 opacity-0 group-hover:opacity-100"
                                 >
                                     <Trash2 size={16} />
                                 </button>
