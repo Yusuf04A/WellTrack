@@ -39,13 +39,12 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <body
-        className={`${_geist.variable} font-sans antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 flex h-screen overflow-hidden`}
+        className={`${_geist.variable} font-sans antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 flex h-screen overflow-hidden flex-col md:flex-row`}
       >
         <Sidebar />
 
-        <main className="flex-1 overflow-y-auto p-8 relative">
-          {/* Animated background glow */}
-          <div className="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 blur-[120px] pointer-events-none animate-pulse" />
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 relative">
+          <div className="fixed top-0 left-1/4 w-96 h-96 bg-green-500/10 blur-[120px] pointer-events-none animate-pulse" />
           <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 blur-[120px] pointer-events-none animate-pulse" />
 
           <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
