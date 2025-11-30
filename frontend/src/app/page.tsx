@@ -1,8 +1,13 @@
 "use client"
 
-import { Activity, Clock, CalendarDays, ArrowRight, MoreHorizontal, Zap, Heart } from "lucide-react"
+import { useState } from "react"
+import { Activity, Clock, CalendarDays, Zap, Heart, X, Plus } from "lucide-react"
 
 export default function Home() {
+  const [showAddTarget, setShowAddTarget] = useState(false)
+  const [newTarget, setNewTarget] = useState("")
+  const [targets, setTargets] = useState<string[]>(["Lari Pagi (30m)", "Review Code Backend", "Membaca Buku"])
+
   const stats = [
     {
       label: "Habits Selesai",
@@ -36,14 +41,20 @@ export default function Home() {
     },
   ]
 
-  const priorityItems = [
-    { title: "Lari Pagi (30m)", color: "bg-green-500 dark:bg-green-400", delay: "0s" },
-    { title: "Review Code Backend", color: "bg-emerald-500 dark:bg-emerald-400", delay: "0.1s" },
-    { title: "Membaca Buku", color: "bg-teal-500 dark:bg-teal-400", delay: "0.2s" },
-  ]
+  const handleAddTarget = () => {
+    if (newTarget.trim()) {
+      setTargets([...targets, newTarget])
+      setNewTarget("")
+      setShowAddTarget(false)
+    }
+  }
+
+  const removeTarget = (index: number) => {
+    setTargets(targets.filter((_, i) => i !== index))
+  }
 
   return (
-    <div className="space-y-10 pb-10 animate-float-up">
+    <div className="space-y-10 pb-10">
       {/* --- Header --- */}
       <div className="relative">
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-3 text-balance dark:text-white">
@@ -59,8 +70,7 @@ export default function Home() {
         {stats.map((stat, i) => (
           <div
             key={i}
-            style={{ animationDelay: `${i * 0.15}s` }}
-            className={`group relative p-6 md:p-8 rounded-2xl border ${stat.border} bg-gradient-to-br ${stat.gradient} dark:bg-slate-900/40 dark:backdrop-blur-md overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:bg-white/50 dark:hover:bg-slate-900/60 ${stat.glow} animate-float-up`}
+            className={`group relative p-6 md:p-8 rounded-2xl border ${stat.border} bg-gradient-to-br ${stat.gradient} dark:bg-slate-900/40 dark:backdrop-blur-md overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:bg-white/50 dark:hover:bg-slate-900/60 ${stat.glow}`}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
@@ -89,8 +99,8 @@ export default function Home() {
 
       {/* --- Main Content Grid --- */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        {/* Chart Area */}
-        <div className="lg:col-span-2 relative group animate-float-up">
+        {/* Chart Area - Statistics */}
+        <div className="lg:col-span-2 relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-green-600/10 dark:from-green-600/20 to-emerald-600/10 dark:to-emerald-600/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition duration-500" />
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-white/80 dark:from-slate-900 to-slate-100/50 dark:to-slate-950 border border-green-500/20 h-80 md:h-96 flex flex-col items-center justify-center text-center overflow-hidden hover-glow">
             <div className="relative z-10 space-y-4">
@@ -101,12 +111,23 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-500 max-w-sm text-sm md:text-base">
                 Grafik aktivitas akan muncul di sini setelah kamu menyelesaikan lebih banyak habits minggu ini.
               </p>
+              <div className="pt-4 flex gap-2 flex-wrap justify-center">
+                <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-700 dark:text-green-300 text-xs font-semibold">
+                  Senin: 7/10
+                </span>
+                <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-700 dark:text-green-300 text-xs font-semibold">
+                  Selasa: 8/10
+                </span>
+                <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-700 dark:text-green-300 text-xs font-semibold">
+                  Rabu: 6/10
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Priorities List */}
-        <div className="relative group h-full animate-float-up" style={{ animationDelay: "0.2s" }}>
+        <div className="relative group h-full">
           <div className="absolute -inset-1 bg-gradient-to-b from-green-600/10 dark:from-green-600/20 to-slate-950/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition duration-500" />
           <div className="relative p-4 md:p-6 rounded-2xl bg-gradient-to-br from-white/80 dark:from-slate-900 to-slate-100/50 dark:to-slate-950 border border-green-500/20 h-full flex flex-col hover-glow">
             <div className="flex items-center justify-between mb-4 md:mb-6">
@@ -114,41 +135,89 @@ export default function Home() {
                 <h3 className="text-slate-900 dark:text-white font-bold text-lg">Prioritas Hari Ini</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Target fokus kamu</p>
               </div>
-              <button className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 transition-all duration-300 hover:scale-110">
-                <MoreHorizontal size={18} />
-              </button>
             </div>
 
-            <div className="space-y-3 flex-1">
-              {priorityItems.map((item, idx) => (
+            <div className="space-y-3 flex-1 max-h-64 overflow-y-auto">
+              {targets.map((item, idx) => (
                 <div
                   key={idx}
-                  style={{ animationDelay: item.delay }}
-                  className="group/item flex items-center justify-between p-3 md:p-4 rounded-xl bg-gradient-to-r from-slate-100/50 dark:from-slate-800/50 to-slate-50/50 dark:to-slate-900/50 border border-slate-300/50 dark:border-slate-700/50 hover:from-slate-200/70 dark:hover:from-slate-800/80 hover:to-slate-100/70 dark:hover:to-slate-900/80 hover:border-green-500/50 dark:hover:border-green-500/50 transition-all cursor-pointer duration-400 animate-float-up hover-lift"
+                  className="group/item flex items-center justify-between p-3 md:p-4 rounded-xl bg-gradient-to-r from-slate-100/50 dark:from-slate-800/50 to-slate-50/50 dark:to-slate-900/50 border border-slate-300/50 dark:border-slate-700/50 hover:from-slate-200/70 dark:hover:from-slate-800/80 hover:to-slate-100/70 dark:hover:to-slate-900/80 hover:border-green-500/50 dark:hover:border-green-500/50 transition-all cursor-pointer duration-400 hover-lift"
                 >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`w-3 h-3 rounded-full ${item.color} shadow-md shadow-current/50 group-hover/item:scale-150 transition-transform duration-400`}
-                    />
-                    <span className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-medium group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors">
-                      {item.title}
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 shadow-md shadow-green-500/50" />
+                    <span className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-medium group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors truncate">
+                      {item}
                     </span>
                   </div>
-                  <ArrowRight
-                    size={14}
-                    className="text-slate-400 dark:text-slate-600 -translate-x-2 opacity-0 group-hover/item:translate-x-0 group-hover/item:opacity-100 group-hover/item:text-green-600 dark:group-hover/item:text-green-400 transition-all duration-400"
-                  />
+                  <button
+                    onClick={() => removeTarget(idx)}
+                    className="ml-2 p-1 hover:bg-red-500/20 text-red-500 dark:text-red-400 rounded opacity-0 group-hover/item:opacity-100 transition-opacity"
+                  >
+                    <X size={14} />
+                  </button>
                 </div>
               ))}
             </div>
 
-            <button className="w-full py-3 md:py-4 mt-4 md:mt-6 text-xs md:text-sm font-semibold text-slate-600 dark:text-slate-400 border border-dashed border-slate-300 dark:border-slate-700 rounded-xl hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/50 dark:hover:border-green-500/50 hover:bg-green-500/5 dark:hover:bg-green-500/5 transition-all duration-400 group/add flex items-center justify-center gap-2 smooth-transition">
+            <button
+              onClick={() => setShowAddTarget(true)}
+              className="w-full py-3 md:py-4 mt-4 md:mt-6 text-xs md:text-sm font-semibold text-green-600 dark:text-green-400 border border-dashed border-green-500/50 dark:border-green-500/50 rounded-xl hover:text-green-700 dark:hover:text-green-300 hover:border-green-500 dark:hover:border-green-500 hover:bg-green-500/5 dark:hover:bg-green-500/5 transition-all duration-400 group/add flex items-center justify-center gap-2"
+            >
               <Zap size={16} className="group-hover/add:scale-110 transition-transform duration-400" />
               Tambah Target Baru
             </button>
           </div>
         </div>
       </div>
+
+      {/* Modal Tambah Target */}
+      {showAddTarget && (
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center p-4 md:p-0">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 md:p-8 w-full max-w-md border border-green-500/20 shadow-xl">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Tambah Target Baru</h3>
+              <button
+                onClick={() => setShowAddTarget(false)}
+                className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                  Target Baru
+                </label>
+                <input
+                  type="text"
+                  value={newTarget}
+                  onChange={(e) => setNewTarget(e.target.value)}
+                  placeholder="Contoh: Jogging 5km"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                  onKeyPress={(e) => e.key === "Enter" && handleAddTarget()}
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => setShowAddTarget(false)}
+                  className="flex-1 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold transition-all duration-300"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={handleAddTarget}
+                  disabled={!newTarget.trim()}
+                  className="flex-1 px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold hover:from-green-400 hover:to-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Plus size={16} /> Tambah
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,13 +1,12 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
-import { Play, Pause, RotateCcw, Check } from "lucide-react"
+import { Play, Pause, RotateCcw } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 export default function TimerPage() {
     const [timeLeft, setTimeLeft] = useState(25 * 60)
     const [isActive, setIsActive] = useState(false)
     const [mode, setMode] = useState<"focus" | "break">("focus")
-    const [sessionsCompleted, setSessionsCompleted] = useState(0)
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const notificationShownRef = useRef(false)
 
@@ -17,14 +16,10 @@ export default function TimerPage() {
             interval = setInterval(() => setTimeLeft((t) => t - 1), 1000)
         } else if (timeLeft === 0 && isActive) {
             setIsActive(false)
-            if (mode === "focus") {
-                setSessionsCompleted((s) => s + 1)
-            }
 
             if (!notificationShownRef.current) {
                 notificationShownRef.current = true
 
-                // Show browser notification
                 if ("Notification" in window && Notification.permission === "granted") {
                     new Notification("WellTrack", {
                         body: mode === "focus" ? "Waktu fokus selesai! Ambil istirahat." : "Istirahat selesai! Siap fokus lagi?",
@@ -33,7 +28,6 @@ export default function TimerPage() {
                     })
                 }
 
-                // Play sound
                 const audioUrl = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA=="
                 const audio = new Audio(audioUrl)
                 audio.play().catch(() => {
@@ -71,8 +65,8 @@ export default function TimerPage() {
     const progress = ((mode === "focus" ? 25 * 60 : 5 * 60) - timeLeft) / (mode === "focus" ? 25 * 60 : 5 * 60)
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen space-y-8 md:space-y-12 pt-10 pb-10 animate-float-up">
-            <div className="flex gap-3 p-2 bg-slate-900/50 border border-slate-700/50 rounded-full hover-glow">
+        <div className="flex flex-col items-center justify-center min-h-screen space-y-8 md:space-y-12 pt-10 pb-10">
+            <div className="flex gap-3 p-2 bg-slate-200/50 dark:bg-slate-900/50 border border-slate-300/50 dark:border-slate-700/50 rounded-full hover-glow">
                 <button
                     onClick={() => {
                         setMode("focus")
@@ -81,10 +75,10 @@ export default function TimerPage() {
                         notificationShownRef.current = false
                     }}
                     className={cn(
-                        "px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold transition-all duration-400 smooth-transition",
+                        "px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold transition-all duration-400",
                         mode === "focus"
-                            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-slate-950 shadow-lg shadow-green-500/30"
-                            : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50",
+                            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30"
+                            : "text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-800/50",
                     )}
                 >
                     Focus (25m)
@@ -97,10 +91,10 @@ export default function TimerPage() {
                         notificationShownRef.current = false
                     }}
                     className={cn(
-                        "px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold transition-all duration-400 smooth-transition",
+                        "px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold transition-all duration-400",
                         mode === "break"
-                            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-lg shadow-amber-500/30"
-                            : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50",
+                            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30"
+                            : "text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-800/50",
                     )}
                 >
                     Break (5m)
@@ -111,15 +105,15 @@ export default function TimerPage() {
                 <div className="relative w-64 md:w-72 h-64 md:h-72 flex items-center justify-center">
                     <div
                         className={cn(
-                            "absolute inset-0 rounded-full transition-all duration-300 smooth-transition",
+                            "absolute inset-0 rounded-full transition-all duration-500",
                             isActive
-                                ? "bg-gradient-to-r from-green-500/20 to-emerald-500/20 blur-[60px] animate-pulse"
-                                : "bg-slate-600/10 blur-[60px]",
+                                ? "bg-gradient-to-r from-green-500/15 dark:from-green-500/20 to-emerald-500/10 dark:to-emerald-500/15 blur-[60px]"
+                                : "bg-slate-300/10 dark:bg-slate-600/10 blur-[60px]",
                         )}
                     />
 
                     <svg className="absolute w-full h-full" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(71, 85, 105, 0.2)" strokeWidth="2" />
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(156, 163, 175, 0.2)" strokeWidth="2" />
 
                         <circle
                             cx="50"
@@ -146,10 +140,10 @@ export default function TimerPage() {
                     </svg>
 
                     <div className="relative z-10 text-center">
-                        <div className="text-6xl md:text-8xl font-black font-mono text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400 tracking-tighter drop-shadow-2xl">
+                        <div className="text-6xl md:text-8xl font-black font-mono text-transparent bg-clip-text bg-gradient-to-r from-green-600 dark:from-green-400 to-emerald-600 dark:to-emerald-400 tracking-tighter drop-shadow-2xl">
                             {formatTime(timeLeft)}
                         </div>
-                        <p className="text-slate-400 text-xs md:text-sm font-medium mt-3 md:mt-4 uppercase tracking-widest">
+                        <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm font-medium mt-3 md:mt-4 uppercase tracking-widest">
                             {mode === "focus" ? "Waktu Fokus" : "Istirahat"}
                         </p>
                     </div>
@@ -160,10 +154,10 @@ export default function TimerPage() {
                 <button
                     onClick={toggleTimer}
                     className={cn(
-                        "h-14 md:h-16 w-14 md:w-16 rounded-2xl flex items-center justify-center font-bold transition-all duration-400 hover:scale-110 hover:shadow-lg smooth-transition",
+                        "h-14 md:h-16 w-14 md:w-16 rounded-2xl flex items-center justify-center font-bold transition-all duration-400 hover:scale-110 hover:shadow-lg",
                         isActive
                             ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30 hover:shadow-red-500/50"
-                            : "bg-gradient-to-r from-green-500 to-emerald-500 text-slate-950 shadow-lg shadow-green-500/30 hover:shadow-green-500/50",
+                            : "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30 hover:shadow-green-500/50",
                     )}
                 >
                     {isActive ? <Pause size={28} fill="white" /> : <Play size={28} fill="white" className="ml-1" />}
@@ -171,29 +165,16 @@ export default function TimerPage() {
 
                 <button
                     onClick={resetTimer}
-                    className="h-14 md:h-16 w-14 md:w-16 bg-slate-900/50 text-slate-400 border border-slate-700/50 rounded-2xl flex items-center justify-center hover:bg-slate-800/70 hover:border-green-500/50 hover:text-green-400 transition-all duration-400 hover:scale-110 hover:shadow-lg smooth-transition"
+                    className="h-14 md:h-16 w-14 md:w-16 bg-slate-200 dark:bg-slate-900/50 text-slate-700 dark:text-slate-400 border border-slate-300 dark:border-slate-700/50 rounded-2xl flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-800/70 hover:border-green-500/50 dark:hover:border-green-500/50 hover:text-green-600 dark:hover:text-green-400 transition-all duration-400 hover:scale-110 hover:shadow-lg"
                 >
                     <RotateCcw size={24} />
                 </button>
             </div>
 
-            <div className="p-4 md:p-6 rounded-2xl bg-gradient-to-r from-green-600/10 to-emerald-600/10 border border-green-500/30 hover-glow animate-gentle-float">
-                <div className="flex items-center gap-3 md:gap-4">
-                    <Check size={24} className="text-green-400 flex-shrink-0" />
-                    <div>
-                        <p className="text-slate-400 text-sm">Sesi Selesai Hari Ini</p>
-                        <p className="text-2xl md:text-3xl font-bold text-white">
-                            {sessionsCompleted}
-                            <span className="text-green-400 ml-2">🎯</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="max-w-md text-center space-y-3 p-4 md:p-6 rounded-2xl bg-slate-900/30 border border-slate-700/30">
-                <p className="text-slate-400 text-sm leading-relaxed">
-                    💡 <strong className="text-slate-200">Tips:</strong> Fokus tanpa gangguan untuk hasil maksimal. Timer akan
-                    tetap berjalan meski kamu berpindah halaman.
+            <div className="max-w-md text-center space-y-3 p-4 md:p-6 rounded-2xl bg-slate-100/50 dark:bg-slate-900/30 border border-slate-300/50 dark:border-slate-700/30">
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    💡 <strong className="text-slate-800 dark:text-slate-200">Tips:</strong> Fokus tanpa gangguan untuk hasil
+                    maksimal. Timer akan tetap berjalan meski kamu berpindah halaman.
                 </p>
             </div>
         </div>
