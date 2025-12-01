@@ -10,6 +10,7 @@ type Habit = {
     streak: number
     targets?: string[]
     days?: number
+    duration?: number
 }
 
 type PendingChanges = {
@@ -18,10 +19,18 @@ type PendingChanges = {
 
 export default function HabitsPage() {
     const [habits, setHabits] = useState<Habit[]>([
-        { id: 1, title: "Minum Air 2 Liter", completed: true, streak: 5, targets: ["2 liter", "4 gelas"], days: 5 },
-        { id: 2, title: "Belajar Golang 1 Jam", completed: false, streak: 12, targets: ["1 jam"], days: 12 },
-        { id: 3, title: "Workout Ringan", completed: false, streak: 3, days: 3 },
-        { id: 4, title: "Membaca Buku", completed: true, streak: 8, targets: ["20 halaman"], days: 8 },
+        {
+            id: 1,
+            title: "Minum Air 2 Liter",
+            completed: true,
+            streak: 5,
+            targets: ["2 liter", "4 gelas"],
+            days: 5,
+            duration: 30,
+        },
+        { id: 2, title: "Belajar Golang 1 Jam", completed: false, streak: 12, targets: ["1 jam"], days: 12, duration: 60 },
+        { id: 3, title: "Workout Ringan", completed: false, streak: 3, days: 3, duration: 45 },
+        { id: 4, title: "Membaca Buku", completed: true, streak: 8, targets: ["20 halaman"], days: 8, duration: 20 },
     ])
 
     const [pendingChanges, setPendingChanges] = useState<PendingChanges>({})
@@ -29,6 +38,7 @@ export default function HabitsPage() {
     const [newHabitTitle, setNewHabitTitle] = useState("")
     const [newTargets, setNewTargets] = useState<string[]>([""])
     const [newDays, setNewDays] = useState(1)
+    const [newDuration, setNewDuration] = useState(30)
 
     const toggleHabit = (id: number) => {
         setPendingChanges((prev) => ({
@@ -67,11 +77,13 @@ export default function HabitsPage() {
                 streak: 0,
                 targets: newTargets.filter((t) => t.trim()),
                 days: newDays,
+                duration: newDuration,
             }
             setHabits([...habits, newHabit])
             setNewHabitTitle("")
             setNewTargets([""])
             setNewDays(1)
+            setNewDuration(30)
             setShowAddModal(false)
         }
     }
@@ -98,7 +110,7 @@ export default function HabitsPage() {
     const hasPendingChanges = Object.keys(pendingChanges).length > 0
 
     return (
-        <div className="space-y-6 md:space-y-8 pb-10">
+        <div className="space-y-6 md:space-y-8 pb-32 md:pb-10">
             <div className="space-y-4">
                 <div className="flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
                     <div>
@@ -171,16 +183,23 @@ export default function HabitsPage() {
                                         >
                                             {habit.title}
                                         </span>
-                                        {habit.targets && habit.targets.length > 0 && (
-                                            <div className="flex gap-2 mt-2 flex-wrap">
-                                                {habit.targets.map((target, idx) => (
-                                                    <span
-                                                        key={idx}
-                                                        className="text-xs px-2 py-1 rounded-full bg-green-500/10 dark:bg-green-500/15 text-green-700 dark:text-green-300 border border-green-500/30"
-                                                    >
-                                                        {target}
+                                        {(habit.targets || habit.duration) && (
+                                            <div className="flex gap-2 mt-2 flex-wrap items-center">
+                                                {habit.targets &&
+                                                    habit.targets.length > 0 &&
+                                                    habit.targets.map((target, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className="text-xs px-2 py-1 rounded-full bg-green-500/10 dark:bg-green-500/15 text-green-700 dark:text-green-300 border border-green-500/30"
+                                                        >
+                                                            {target}
+                                                        </span>
+                                                    ))}
+                                                {habit.duration && (
+                                                    <span className="text-xs px-2 py-1 rounded-full bg-blue-500/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30">
+                                                        {habit.duration}m
                                                     </span>
-                                                ))}
+                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -207,14 +226,13 @@ export default function HabitsPage() {
                 })}
             </div>
 
-            {/* Save Button - Single for all changes */}
             {hasPendingChanges && (
-                <div className="fixed bottom-24 md:bottom-8 left-4 right-4 md:left-auto md:right-auto md:max-w-2xl md:mx-auto flex gap-3 z-40">
+                <div className="fixed bottom-0 left-0 right-0 flex gap-3 z-40 p-4 md:p-8 bg-gradient-to-t from-white dark:from-slate-950 to-transparent md:relative md:bg-none md:from-transparent md:py-6">
                     <button
                         onClick={cancelChanges}
                         className="flex-1 py-3 rounded-xl bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300"
                     >
-                        <X size={16} /> Batal
+                        <X size={16} /> Batalkan
                     </button>
                     <button
                         onClick={saveChanges}
@@ -268,6 +286,22 @@ export default function HabitsPage() {
                                     className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
                                 />
                                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Target berapa hari untuk habit ini</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    Durasi (menit)
+                                </label>
+                                <input
+                                    type="number"
+                                    min="5"
+                                    max="480"
+                                    value={newDuration}
+                                    onChange={(e) => setNewDuration(Number.parseInt(e.target.value) || 30)}
+                                    placeholder="Contoh: 30"
+                                    className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                                />
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Berapa menit durasi habit ini</p>
                             </div>
 
                             {/* Targets section */}
